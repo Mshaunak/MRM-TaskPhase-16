@@ -6,11 +6,9 @@ import matplotlib.pyplot as plt
 from model import Net
 
 
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-
+device = torch.device("cpu")
 
 # ================= PREPROCESS =================
-# Convert to tensor + normalize
 transform = transforms.Compose([
     transforms.ToTensor(),
     transforms.Normalize((0.1307,), (0.3081,))
@@ -103,7 +101,7 @@ for epoch in range(epochs):
     val_losses.append(val_loss)
     val_accs.append(val_acc)
 
-        # ----- TEST -----
+    # ----- TEST -----
     model.eval()
     running_loss = 0
     correct = 0
@@ -133,7 +131,6 @@ for epoch in range(epochs):
     print(f"Test  Loss: {test_loss:.4f} | Test  Acc: {test_acc:.4f}")
 
 
-# ================= SAVE =================
 torch.save(model.state_dict(), "mnist_cnn.pth")
 
 
@@ -153,7 +150,6 @@ with torch.no_grad():
 print("Final Test Accuracy:", correct / total)
 
 
-# ================= GRAPHS =================
 plt.figure()
 plt.plot(train_losses, label="Train")
 plt.plot(val_losses, label="Validation")
