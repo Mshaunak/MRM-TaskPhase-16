@@ -4,7 +4,13 @@ from torch.utils.data import DataLoader, random_split
 from torchvision import datasets, transforms
 import matplotlib.pyplot as plt
 from model import Net
+import numpy as np
+import random
 
+seed = 42
+random.seed(seed)
+np.random.seed(seed)
+torch.manual_seed(seed)
 
 device = torch.device("cpu")
 
